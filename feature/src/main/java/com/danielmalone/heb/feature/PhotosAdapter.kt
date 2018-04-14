@@ -6,16 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import com.danielmalone.heb.feature.PhotosAdapter.ViewHolder
 import com.danielmalone.heb.feature.models.Photo
 import com.squareup.picasso.Picasso
 
-class PhotosAdapter(val photos: ArrayList<Photo>) : RecyclerView.Adapter<ViewHolder>() {
+class PhotosAdapter(val photos: List<Photo>) : RecyclerView.Adapter<PhotosAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         d("daniel", "loading image")
-        Picasso.get().load("https://square.github.io/picasso/static/sample.png").into(holder.photo)
-        d("daniel", "loaded image")
+        val url = "https://farm${photos[position].farm}.staticflickr.com/${photos[position].server}/${photos[position].id}_${photos[position].secret}_m.jpg"
+        Picasso.get().load(url).into(holder.photo)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

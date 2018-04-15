@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
 
-        mainViewModel.userLiveData.observe(this, Observer {
+        mainViewModel.photosObservable.observe(this, Observer {
             if (it != null) {
                 updateRecyclerView(it)
             }

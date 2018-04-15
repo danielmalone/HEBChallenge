@@ -10,14 +10,14 @@ import java.net.URL
 class PhotoRepository {
 
     fun getPhotos(): MutableLiveData<List<Photo>> {
-        val something: MutableLiveData<List<Photo>> = MutableLiveData()
+        val photosObservable: MutableLiveData<List<Photo>> = MutableLiveData()
 
         doAsync {
-            val uri = URL("https://api.flickr.com/services/rest/?method=flickr.photos.getRecent&api_key=3d99afcbd3cf85e827a7ad1da8dab431&format=json")
-            val json = uri.readText().replace("jsonFlickrApi(", "").replace("})", "}")
+            val uri = URL("https://api.flickr.com/services/rest/?method=flickr.photos.getRecent&api_key=3d99afcbd3cf85e827a7ad1da8dab431&format=json&extras=tags%3Dcar&nojsoncallback=1")
+            val json = uri.readText()
             val photos = Gson().fromJson(json, Flickr::class.java)
-            something.postValue(photos.photos!!.photo)
+            photosObservable.postValue(photos.photos!!.photo)
         }
-        return something
+        return photosObservable
     }
 }

@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var mainViewModel: MainViewModel
+    private lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,6 +20,20 @@ class MainActivity : AppCompatActivity() {
 
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
 
+        setupObservers()
+
+        swipeRefreshLayout.setOnRefreshListener {
+            // I really don't like this pattern (going directly to source). But it works.
+            PhotoRepository().getPhotos().observe(this@MainActivity, Observer {
+                if (it != null) {
+                    updateRecyclerView(it)
+                }
+            })
+            swipeRefreshLayout.isRefreshing = false
+        }
+    }
+
+    private fun setupObservers() {
         mainViewModel.photosObservable.observe(this, Observer {
             if (it != null) {
                 updateRecyclerView(it)

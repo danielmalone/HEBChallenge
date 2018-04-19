@@ -7,7 +7,7 @@ import com.danielmalone.heb.feature.models.Photo
 
 class MainViewModel : ViewModel() {
 
-    val photos: MutableLiveData<List<Photo>> = MutableLiveData()
+    private val photos: MutableLiveData<List<Photo>> = MutableLiveData()
     var photosObservable = Transformations.switchMap(PhotoRepository().getPhotos()) { photoRepository ->
         photos.value = photoRepository
         return@switchMap photos

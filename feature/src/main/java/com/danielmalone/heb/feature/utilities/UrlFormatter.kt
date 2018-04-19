@@ -9,8 +9,8 @@ class UrlFormatter {
         const val FLICKR_API_KEY = "3d99afcbd3cf85e827a7ad1da8dab431"
         const val FLICKR_FORMAT = "json"
         const val FLICKR_ADDITIONAL_PARAMATERS = "&extras=tags%3Dcar&nojsoncallback=1"
-        const val FLICKR_PHOTOS_PER_PAGE = 2
-        const val FLICKR_CURRENT_PAGE = 1
+        const val FLICKR_PHOTOS_PER_PAGE = 20
+        const val FLICKR_CURRENT_PAGE = 0
     }
 
     fun getUrl(): String {

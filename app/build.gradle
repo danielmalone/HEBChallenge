@@ -25,6 +25,7 @@ android {
 }
 
 dependencies {
+    implementation "android.arch.paging:runtime:1.0.0-beta1"
     implementation project(':feature')
     implementation project(':base')
 }

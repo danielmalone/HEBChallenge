@@ -19,6 +19,6 @@ class Photos {
     var total: String? = null
     @SerializedName("photo")
     @Expose
-    var photo: List<Photo>? = null
+    var photo: ArrayList<Photo>? = null
 
 }

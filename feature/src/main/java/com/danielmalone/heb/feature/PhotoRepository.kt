@@ -10,8 +10,8 @@ import java.net.URL
 
 class PhotoRepository {
 
-    fun getPhotos(): MutableLiveData<List<Photo>> {
-        val photosObservable: MutableLiveData<List<Photo>> = MutableLiveData()
+    fun getPhotos(): MutableLiveData<ArrayList<Photo>> {
+        val photosObservable: MutableLiveData<ArrayList<Photo>> = MutableLiveData()
 
         doAsync {
 

@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.content_main.*
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mainViewModel: MainViewModel
+    private lateinit var photos: ArrayList<Photo>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +27,9 @@ class MainActivity : AppCompatActivity() {
             // I really don't like this pattern (going directly to source). But it works.
             PhotoRepository().getPhotos().observe(this@MainActivity, Observer {
                 if (it != null) {
-                    updateRecyclerView(it)
+                    photos.clear()
+                    photos.addAll(it)
+                    recyclerView.adapter.notifyDataSetChanged()
                 }
             })
             swipeRefreshLayout.isRefreshing = false
@@ -36,15 +39,14 @@ class MainActivity : AppCompatActivity() {
     private fun setupObservers() {
         mainViewModel.photosObservable.observe(this, Observer {
             if (it != null) {
-                updateRecyclerView(it)
+                photos = it
+                loadRecyclerView()
             }
         })
     }
 
-    private fun updateRecyclerView(photos: List<Photo>) {
-        recyclerView.apply {
-            layoutManager = GridLayoutManager(this@MainActivity, resources.getInteger(R.integer.number_of_columns))
-            adapter = PhotosAdapter(photos)
-        }
+    private fun loadRecyclerView() {
+        recyclerView.layoutManager = GridLayoutManager(this@MainActivity, resources.getInteger(R.integer.number_of_columns))
+        recyclerView.adapter = PhotosAdapter(photos)
     }
 }
